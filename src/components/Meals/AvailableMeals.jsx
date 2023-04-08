@@ -5,27 +5,27 @@ import MealItem from "./MealItem/MealItem";
 const DUMMY_MEALS = [
   {
     id: "m1",
-    name: "Sushi",
-    description: "Finest fish and veggies",
-    price: 158000,
+    name: "Nasi Pecel",
+    description: "Pecel sayur hijau",
+    price: 15000,
   },
   {
     id: "m2",
-    name: "Schnitzel",
-    description: "A german specialty!",
-    price: 90000,
+    name: "Ayam Bakar",
+    description: "Ayam kampung khas Purwodadi",
+    price: 20000,
   },
   {
     id: "m3",
-    name: "Barbecue Burger",
-    description: "American, raw, meaty",
-    price: 56000,
+    name: "Gudeg",
+    description: "Gudeg asli khas jogja",
+    price: 10000,
   },
   {
     id: "m4",
-    name: "Green Bowl",
-    description: "Healthy...and green...",
-    price: 175000,
+    name: "Lontong sayur",
+    description: "Lontong asli khas purwodadi",
+    price: 15000,
   },
 ];
 
