@@ -8,13 +8,13 @@ const isFiveChars = (value) => value.trim().length === 5;
 const Checkout = (props) => {
   const [formInputsValidity, setFormInputsValidity] = useState({
     name: true,
-    street: true,
+    address: true,
     city: true,
     postalCode: true,
   });
 
   const nameInputRef = useRef();
-  const streetInputRef = useRef();
+  const addressInputRef = useRef();
   const postalCodeInputRef = useRef();
   const cityInputRef = useRef();
 
@@ -22,25 +22,25 @@ const Checkout = (props) => {
     event.preventDefault();
 
     const enteredName = nameInputRef.current.value;
-    const enteredStreet = streetInputRef.current.value;
+    const enteredAddress = addressInputRef.current.value;
     const enteredPostalCode = postalCodeInputRef.current.value;
     const enteredCity = cityInputRef.current.value;
 
     const enteredNameIsValid = !isEmpty(enteredName);
-    const enteredStreetIsValid = !isEmpty(enteredStreet);
+    const enteredAddressIsValid = !isEmpty(enteredAddress);
     const enteredCityIsValid = !isEmpty(enteredCity);
     const enteredPostalCodeIsValid = isFiveChars(enteredPostalCode);
 
     setFormInputsValidity({
       name: enteredNameIsValid,
-      street: enteredStreetIsValid,
+      address: enteredAddressIsValid,
       city: enteredCityIsValid,
       postalCode: enteredPostalCodeIsValid,
     });
 
     const formIsValid =
       enteredNameIsValid &&
-      enteredStreetIsValid &&
+      enteredAddressIsValid &&
       enteredCityIsValid &&
       enteredPostalCodeIsValid;
 
@@ -48,14 +48,19 @@ const Checkout = (props) => {
       return;
     }
 
-    // Submit cart data
+    props.onConfirm({
+      name: enteredName,
+      address: enteredAddress,
+      city: enteredCity,
+      postalCode: enteredPostalCode,
+    });
   };
 
   const nameControlClasses = `${classes.control} ${
     formInputsValidity.name ? "" : classes.invalid
   }`;
-  const streetControlClasses = `${classes.control} ${
-    formInputsValidity.street ? "" : classes.invalid
+  const addressControlClasses = `${classes.control} ${
+    formInputsValidity.address ? "" : classes.invalid
   }`;
   const postalCodeControlClasses = `${classes.control} ${
     formInputsValidity.postalCode ? "" : classes.invalid
@@ -67,26 +72,32 @@ const Checkout = (props) => {
   return (
     <form className={classes.form} onSubmit={confirmHandler}>
       <div className={nameControlClasses}>
-        <label htmlFor="name">Your Name</label>
+        <label htmlFor="name">Nama Anda</label>
         <input type="text" id="name" ref={nameInputRef} />
-        {!formInputsValidity.name && <p>Please enter a valid name!</p>}
+        {!formInputsValidity.name && <p>Tolong Masukkan nama dengan benar</p>}
       </div>
-      <div className={streetControlClasses}>
-        <label htmlFor="street">Street</label>
-        <input type="text" id="street" ref={streetInputRef} />
-        {!formInputsValidity.street && <p>Please enter a valid street!</p>}
+      <div className={addressControlClasses}>
+        <label htmlFor="address">Alamat</label>
+        <input type="text" id="address" ref={addressInputRef} />
+        {!formInputsValidity.address && (
+          <p>Tolong Masukkan Alamat yang benar</p>
+        )}
       </div>
       <div className={postalCodeControlClasses}>
-        <label htmlFor="postal">Postal Code</label>
+        <label htmlFor="postal">Kode POS</label>
         <input type="text" id="postal" ref={postalCodeInputRef} />
         {!formInputsValidity.postalCode && (
-          <p>Please enter a valid postal code (5 characters long)!</p>
+          <p>
+            Tolong Masukkan kode POS dengan benar (Terdiri dari 5 karakter)!
+          </p>
         )}
       </div>
       <div className={cityControlClasses}>
-        <label htmlFor="city">City</label>
+        <label htmlFor="city">Kota</label>
         <input type="text" id="city" ref={cityInputRef} />
-        {!formInputsValidity.city && <p>Please enter a valid city!</p>}
+        {!formInputsValidity.city && (
+          <p>Tolong Masukkan nama kota dengan benar</p>
+        )}
       </div>
       <div className={classes.actions}>
         <button type="button" onClick={props.onCancel}>
